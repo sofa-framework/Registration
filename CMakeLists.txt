@@ -10,27 +10,29 @@ sofa_find_package(SofaDistanceGrid QUIET)
 sofa_find_package(image QUIET)
 find_package(Eigen3 REQUIRED)
 
+set(REGISTRATION_SRC "src/${PROJECT_NAME}")
+
 set(HEADER_FILES
-    config.h.in
-    ClosestPointRegistrationForceField.h
-    ClosestPointRegistrationForceField.inl
-    GroupwiseRegistrationEngine.h
-    InertiaAlign.h
-    RegistrationContact.h
-    RegistrationContact.inl
-    RegistrationContactForceField.h
-    RegistrationContactForceField.inl
-    RegistrationExporter.h
+    ${REGISTRATION_SRC}/config.h.in
+    ${REGISTRATION_SRC}/ClosestPointRegistrationForceField.h
+    ${REGISTRATION_SRC}/ClosestPointRegistrationForceField.inl
+    ${REGISTRATION_SRC}/GroupwiseRegistrationEngine.h
+    ${REGISTRATION_SRC}/InertiaAlign.h
+    ${REGISTRATION_SRC}/RegistrationContact.h
+    ${REGISTRATION_SRC}/RegistrationContact.inl
+    ${REGISTRATION_SRC}/RegistrationContactForceField.h
+    ${REGISTRATION_SRC}/RegistrationContactForceField.inl
+    ${REGISTRATION_SRC}/RegistrationExporter.h
 )
 
 set(SOURCE_FILES
-    ClosestPointRegistrationForceField.cpp
-    GroupwiseRegistrationEngine.cpp
-    InertiaAlign.cpp
-    RegistrationContact.cpp
-    RegistrationContactForceField.cpp
-    RegistrationExporter.cpp
-    initRegistration.cpp
+    ${REGISTRATION_SRC}/ClosestPointRegistrationForceField.cpp
+    ${REGISTRATION_SRC}/GroupwiseRegistrationEngine.cpp
+    ${REGISTRATION_SRC}/InertiaAlign.cpp
+    ${REGISTRATION_SRC}/RegistrationContact.cpp
+    ${REGISTRATION_SRC}/RegistrationContactForceField.cpp
+    ${REGISTRATION_SRC}/RegistrationExporter.cpp
+    ${REGISTRATION_SRC}/initRegistration.cpp
 )
 
 set(PYTHON_FILES
@@ -40,14 +42,14 @@ set(PYTHON_FILES
 
 )
 
-set(README_FILES README.txt)
+set(README_FILES README.md)
 
 if(image_FOUND)
-    list(APPEND HEADER_FILES IntensityProfileRegistrationForceField.h)
-    list(APPEND HEADER_FILES IntensityProfileRegistrationForceField.inl)
-    list(APPEND SOURCE_FILES IntensityProfileRegistrationForceField.cpp)
-    list(APPEND HEADER_FILES IntensityProfileCreator.h)
-    list(APPEND SOURCE_FILES IntensityProfileCreator.cpp)
+    list(APPEND HEADER_FILES ${REGISTRATION_SRC}/IntensityProfileRegistrationForceField.h)
+    list(APPEND HEADER_FILES ${REGISTRATION_SRC}/IntensityProfileRegistrationForceField.inl)
+    list(APPEND SOURCE_FILES ${REGISTRATION_SRC}/IntensityProfileRegistrationForceField.cpp)
+    list(APPEND HEADER_FILES ${REGISTRATION_SRC}/IntensityProfileCreator.h)
+    list(APPEND SOURCE_FILES ${REGISTRATION_SRC}/IntensityProfileCreator.cpp)
 else()
     message(STATUS "Registration: could not find image, won't build IntensityProfileRegistrationForceField")
 endif()
@@ -77,8 +79,11 @@ endif()
 
 ## Install rules for the library; CMake package configurations files
 sofa_create_package_with_targets(
+
     PACKAGE_NAME ${PROJECT_NAME}
-    PACKAGE_VERSION ${PROJECT_VERSION}
+    PACKAGE_VERSION ${Sofa_VERSION}
     TARGETS ${PROJECT_NAME} AUTO_SET_TARGET_PROPERTIES
+    INCLUDE_SOURCE_DIR "src"
+    INCLUDE_INSTALL_DIR "${PROJECT_NAME}"
     RELOCATABLE "plugins"
-    )
+)
