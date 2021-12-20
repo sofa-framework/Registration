@@ -1,23 +1,12 @@
+# Registration
 
-************************************
-*         registration.txt    	   *
-************************************
-
-
-
-AUTHORS :
+## AUTHORS :
  - Benjamin Gilles
 
-
-
-
-LICENCE :
+## LICENCE :
  - QPL
 
-
-
-OTHER COMMENTS :
-
+## OTHER COMMENTS :
 This plugin allows registering deformable surfaces to
 - target surfaces (ClosestPointRegistrationForceField , RegistrationContactForceField)
 - target images (IntensityProfileRegistrationForceField)
