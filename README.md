@@ -3,7 +3,7 @@
 ## AUTHORS :
  - Benjamin Gilles
 
-## LICENCE :
+## LICENSE :
  - QPL
 
 ## OTHER COMMENTS :
