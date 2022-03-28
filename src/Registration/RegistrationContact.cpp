@@ -31,6 +31,10 @@
 #include <SofaDistanceGrid/components/collision/DistanceGridCollisionModel.h>
 #endif
 
+#include <SofaBaseCollision/SphereModel.h>
+#include <SofaMeshCollision/PointModel.h>
+#include <SofaMeshCollision/LineModel.h>
+#include <SofaMeshCollision/TriangleModel.h>
 
 namespace sofa
 {
