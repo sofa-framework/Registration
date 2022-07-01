@@ -53,7 +53,10 @@ else()
 endif()
 
 # Config files and install rules for pythons scripts
-sofa_set_python_directory(Registration "python")
+sofa_install_pythonscripts(
+    PLUGIN_NAME ${PROJECT_NAME}
+    PYTHONSCRIPTS_SOURCE_DIR "python"
+)
 
 add_library(${PROJECT_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES} ${README_FILES} ${PYTHON_FILES})
 target_link_libraries(${PROJECT_NAME} PUBLIC Sofa.Component.IO.Mesh Sofa.Component.Collision.Response.Mapper Sofa.Component.Engine.Generate)
