@@ -57,6 +57,7 @@ sofa_set_python_directory(Registration "python")
 
 add_library(${PROJECT_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES} ${README_FILES} ${PYTHON_FILES})
 target_link_libraries(${PROJECT_NAME} PUBLIC Sofa.Component.IO.Mesh Sofa.Component.Collision.Response.Mapper Sofa.Component.Engine.Generate)
+target_link_libraries(${PROJECT_NAME} PUBLIC Sofa.GL)
 
 if(image_FOUND)
     target_link_libraries(${PROJECT_NAME} PUBLIC image)
