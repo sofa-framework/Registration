@@ -8,7 +8,7 @@
 #include <sofa/simulation/AnimateEndEvent.h>
 #include <sofa/core/objectmodel/KeypressedEvent.h>
 #include <sofa/core/objectmodel/KeyreleasedEvent.h>
-#include <sofa/component/io/mesh/MeshObjLoader.h>
+#include <sofa/component/io/mesh/MeshOBJLoader.h>
 #include <sofa/type/Vec.h>
 #include <sofa/type/Quat.h>
 
