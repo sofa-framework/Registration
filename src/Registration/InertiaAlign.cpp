@@ -83,8 +83,8 @@ void InertiaAlign::init()
 
         }
     }
-    sout << "Source intertia matrix"<<sendl<<eigenSourceInertiaMatrix << sendl;
-    sout << "Target intertia matrix"<<sendl<<eigenTargetInertiaMatrix << sendl;
+    msg_info() << "Source intertia matrix \n"  << eigenSourceInertiaMatrix;
+    msg_info() << "Target intertia matrix \n" << eigenTargetInertiaMatrix;
 
     Eigen::EigenSolver<Eigen::Matrix3d> solverTarget(eigenTargetInertiaMatrix);
     Eigen::EigenSolver<Eigen::Matrix3d> solverSource(eigenSourceInertiaMatrix);
@@ -244,12 +244,13 @@ void InertiaAlign::init()
     Lzt = sqrt(abs( Txx+Tyy-Tzz)/2);
 
 
-    sout << "EigenVectorsSource =" << sendl;
+    msg_info() << "EigenVectorsSource =";
     for(unsigned int i=0;i<3;i++)
     {
         for(unsigned int j=0;j<3;j++)
-            sout << eigenvectorsSource(i,j) << " ";
-        sout << sendl;
+            msg_info() << eigenvectorsSource(i,j) << " ";
+
+        msg_info() << "\n";
 
     }
 
@@ -257,11 +258,11 @@ void InertiaAlign::init()
     SReal scale_v = Lys / Lyt;
     SReal scale_w = Lzs / Lzt;
 
-    sout << "Scale X = " << scale_u << "Scale Y = "<< scale_v << "Scale Z = " << scale_w << sendl;
+    msg_info() << "Scale X = " << scale_u << "Scale Y = "<< scale_v << "Scale Z = " << scale_w;
 
 
-    sout << "Lxs = " <<Lxs<< "Lys = " <<Lys<< "Lzs = " <<Lzs << sendl;
-    sout << "Lxt = " <<Lxt<< "Lyt = " <<Lyt<< "Lzt = " <<Lzt << sendl;
+    msg_info() << "Lxs = " <<Lxs<< "Lys = " <<Lys<< "Lzs = " <<Lzs;
+    msg_info() << "Lxt = " <<Lxt<< "Lyt = " <<Lyt<< "Lzt = " <<Lzt;
     /*Creation of the two 4x4 transformation matrix:
      *
      *MTransformSource :
@@ -325,7 +326,7 @@ void InertiaAlign::init()
     }
 
 
-    sout <<"Source Directe? "<< sdirect << sendl;
+    msg_info() <<"Source Directe? "<< sdirect;
 
     for(unsigned int i=0;i<3;i++)
     {
@@ -348,7 +349,7 @@ void InertiaAlign::init()
         }
     }
 
-    sout <<"Target Directe? "<< sdirect << sendl;
+    msg_info() <<"Target Directe? "<< sdirect;
 
     //Normalised last line
     MTransformTarget(3,3) = 1;
@@ -393,25 +394,25 @@ void InertiaAlign::init()
 
     }
 
-    sout << "MTransformSource before inversion ="<< sendl;
+    msg_info() << "MTransformSource before inversion =";
     for(unsigned int i=0;i<4;i++)
     {
         for(unsigned int j=0;j<4;j++)
         {
-            sout <<MTransformSource(i,j)<< " ";
+            msg_info() <<MTransformSource(i,j)<< " ";
         }
-        sout << sendl;
+        msg_info() << "\n";
     }
 
     MTransformSource = inverseTransform(MTransformSource);
-    sout << "MTransformSource after inversion ="<< sendl;
+    msg_info() << "MTransformSource after inversion =";
     for(unsigned int i=0;i<4;i++)
     {
         for(unsigned int j=0;j<4;j++)
         {
-            sout <<MTransformSource(i,j)<< " ";
+            msg_info() <<MTransformSource(i,j)<< " ";
         }
-        sout << sendl;
+        msg_info() << "\n";
     }
     type::Matrix4 MTranslation;
     for(unsigned int i=0;i<4;i++)
@@ -503,7 +504,7 @@ void InertiaAlign::init()
         }
         (*m_positions.beginEdit()) = positionDistSource;
     }
-    sout << "Indice choisi : " << indice_min << " avec une distance de " << distance_min << sendl;
+    msg_info() << "Indice choisi : " << indice_min << " avec une distance de " << distance_min;
     //Compute the best transformation
     switch(indice_min)
     {
@@ -548,9 +549,9 @@ void InertiaAlign::init()
     {
        for(unsigned int j=0;j<4;j++)
        {
-         sout << MTransformTarget(k,j) << " ";
+         msg_info() << MTransformTarget(k,j) << " ";
        }
-       sout << sendl;
+       msg_info();
     }
     MTransformSource = MTransformTarget * MTransformSource;
 
@@ -559,9 +560,9 @@ void InertiaAlign::init()
     {
        for(unsigned int j=0;j<4;j++)
        {
-         sout << MTransformSource(k,j) << " ";
+         msg_info() << MTransformSource(k,j) << " ";
        }
-       sout << sendl;
+       msg_info();
     }
 
     Eigen::Matrix4d MDeterminantTest;
@@ -573,7 +574,7 @@ void InertiaAlign::init()
        }
     }
     if(MDeterminantTest.determinant()<0)
-        sout << "The MTransformSourceMatrix is not a Transformation matrix" << sendl;
+        msg_info() << "The MTransformSourceMatrix is not a Transformation matrix";
     for (size_t i = 0; i < waPositions.size(); i++)
     {
         type::Vector4 pointS,pointT;
@@ -648,14 +649,14 @@ Matrix4 InertiaAlign::inverseTransform(Matrix4 transformToInvert)
     Vector3 Translation;
     Matrix4 transformInverted;
 
-    sout << "Before inversion"<< sendl;
+    msg_info() << "Before inversion";
     for(unsigned int i=0;i<4;i++)
     {
         for(unsigned int j=0;j<4;j++)
         {
-            sout << transformToInvert(i,j)<< " ";
+            msg_info() << transformToInvert(i,j)<< " ";
         }
-        sout << sendl;
+        msg_info() << "\n";
     }
     for(unsigned int i=0;i<3;i++)
     {
@@ -668,16 +669,16 @@ Matrix4 InertiaAlign::inverseTransform(Matrix4 transformToInvert)
 
     bool bS = type::invertMatrix(rotationInverted,rotationToInvert);
 
-    sout << "Translation = " << Translation;
+    msg_info() << "Translation = " << Translation;
     if(!bS)
     {
-        sout <<"Error : Source transformation matrix is not invertible"<<sendl;
+        msg_info() <<"Error : Source transformation matrix is not invertible";
     }
     else //Compute R-1 * t
     {
         Translation = (-1*rotationInverted * Translation);
     }
-    sout << "Translation = " << Translation;
+    msg_info() << "Translation = " << Translation;
     for(unsigned int i=0;i<3;i++)
     {
         for(unsigned int j=0;j<3;j++)
@@ -688,14 +689,14 @@ Matrix4 InertiaAlign::inverseTransform(Matrix4 transformToInvert)
     }
     transformInverted(3,3)=1;
 
-    sout << "After inversion"<< sendl;
+    msg_info() << "After inversion";
     for(unsigned int i=0;i<4;i++)
     {
         for(unsigned int j=0;j<4;j++)
         {
-            sout << transformInverted(i,j)<< " ";
+            msg_info() << transformInverted(i,j)<< " ";
         }
-        sout << sendl;
+        msg_info() << "\n";
     }
     return transformInverted;
 

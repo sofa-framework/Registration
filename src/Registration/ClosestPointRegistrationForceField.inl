@@ -35,16 +35,12 @@
 #include <omp.h>
 #endif
 
-#include <SofaLoader/MeshOBJLoader.h>
-#include <SofaGeneralEngine/NormalsFromPoints.h>
+#include <sofa/component/io/mesh/MeshObjLoader.h>
+#include <sofa/component/engine/generate/NormalsFromPoints.h>
 #include <limits>
 #include <set>
 #include <iterator>
 #include <sofa/gl/Color.h>
-
-using std::cerr;
-using std::endl;
-
 
 
 namespace sofa
@@ -106,7 +102,7 @@ void ClosestPointRegistrationForceField<DataTypes>::init()
 
     // Get source triangles
     if(!sourceTriangles.getValue().size()) {
-        sofa::component::loader::MeshOBJLoader *meshobjLoader;
+        sofa::component::io::mesh::MeshOBJLoader *meshobjLoader;
         this->getContext()->get( meshobjLoader, core::objectmodel::BaseContext::Local);
         if (meshobjLoader)
         {
@@ -121,7 +117,7 @@ void ClosestPointRegistrationForceField<DataTypes>::init()
         }
     }
     // Get source normals
-    if(!sourceNormals.getValue().size()) serr<<"normals of the source model not found"<<sendl;
+    if(!sourceNormals.getValue().size()) msg_error()<<"normals of the source model not found";
 }
 
 template<class DataTypes>
@@ -328,7 +324,7 @@ void ClosestPointRegistrationForceField<DataTypes>::addForce(const core::Mechani
     // add rest spring force
     for (unsigned int i=0; i<nb; i++)
     {
-        //serr<<"addForce() between "<<i<<" and "<<closestPos[i]<<sendl;
+        //msg_error()<<"addForce() between "<<i<<" and "<<closestPos[i];
         Coord u = this->closestPos[i]-x[i];
         Real nrm2 = u.norm2();
         Real k = this->ks.getValue();
@@ -405,7 +401,7 @@ void ClosestPointRegistrationForceField<DataTypes>::draw(const core::visual::Vis
         if (showArrowSize.getValue()==0 || drawMode.getValue() == 0)	vparams->drawTool()->drawLines(points, 1, c);
         else if (drawMode.getValue() == 1)	for (unsigned int i=0;i<points.size()/2;++i) vparams->drawTool()->drawCylinder(points[2*i+1], points[2*i], showArrowSize.getValue(), c);
         else if (drawMode.getValue() == 2)	for (unsigned int i=0;i<points.size()/2;++i) vparams->drawTool()->drawArrow(points[2*i+1], points[2*i], showArrowSize.getValue(), c);
-        else serr << "No proper drawing mode found!" << sendl;
+        else msg_error() << "No proper drawing mode found!";
     }
 
     if(drawColorMap.getValue())

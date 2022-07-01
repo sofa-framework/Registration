@@ -118,7 +118,8 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::init()
         //RDataRefVecCoord x(*this->getMState()->read(core::ConstVecCoordId::position()));
 
         RDataRefVecCoord dir(this->directions);
-        if(dir.size() != x.size()) serr<<"IntensityProfileRegistrationForceField: invalid 'directions' size "<< endl;
+        if (dir.size() != x.size())
+            msg_error() << "IntensityProfileRegistrationForceField: invalid 'directions' size ";
 
         VecCoord& refDir = *this->refDirections.beginEdit();
         if(refDir.size() != x.size())
@@ -128,8 +129,8 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::init()
     }
 
     // check inputs
-    raImage im(this->image);    if( im->isEmpty() ) serr<<"IntensityProfileRegistrationForceField: Target data not found"<< endl;
-    raImage rim(this->refImage),rp(this->refProfiles);    if( rim->isEmpty() && rp->isEmpty() ) serr<<"IntensityProfileRegistrationForceField: Reference data not found"<< endl;
+    raImage im(this->image);    if (im->isEmpty()) msg_error() << "IntensityProfileRegistrationForceField: Target data not found";
+    raImage rim(this->refImage), rp(this->refProfiles);    if (rim->isEmpty() && rp->isEmpty()) msg_error() << "IntensityProfileRegistrationForceField: Reference data not found";
 
     this->udpateProfiles(true);
 }
@@ -271,9 +272,9 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::udpateSimilar
     // check lengths
     unsigned int ipdepth=this->Sizes.getValue()[0]+this->Sizes.getValue()[1]+1;
     unsigned int nbchannels =  prof.spectrum();
-    if(prof.height() != (int)nbpoints || prof.width()!=(int)(ipdepth+2*searchRange.getValue())) { serr<<"IntensityProfileRegistrationForceField: invalid profile size"<<sendl; return; }
-    if(/*profref.height() != (int)nbpoints ||*/ profref.width()!=(int)ipdepth) { serr<<"IntensityProfileRegistrationForceField: invalid profile ref length"<<sendl; return; }
-    if(profref.spectrum() != (int)nbchannels) { serr<<"IntensityProfileRegistrationForceField: invalid profile ref channel number"<<sendl; return; }
+    if(prof.height() != (int)nbpoints || prof.width()!=(int)(ipdepth+2*searchRange.getValue())) { msg_error()<<"IntensityProfileRegistrationForceField: invalid profile size"; return; }
+    if(/*profref.height() != (int)nbpoints ||*/ profref.width()!=(int)ipdepth) { msg_error()<<"IntensityProfileRegistrationForceField: invalid profile ref length"; return; }
+    if(profref.spectrum() != (int)nbchannels) { msg_error()<<"IntensityProfileRegistrationForceField: invalid profile ref channel number"; return; }
 
     // convolve
     simi.fill((Ts)0);
@@ -379,7 +380,7 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::addForce(cons
     udpateSimilarity();
 
     m_potentialEnergy = 0;
-    //serr<<"addForce()"<<sendl;
+    //msg_error()<<"addForce()";
     for (unsigned int i=0; i<nb; i++)
     {
 
@@ -404,7 +405,7 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::addForce(cons
         targetPos[i]=x[i]+dirs[i]*(Real)lmin*Step.getValue();
 
         // add rest spring force
-        //serr<<"addForce() between "<<i<<" and "<<closestPos[i]<<sendl;
+        //msg_error()<<"addForce() between "<<i<<" and "<<closestPos[i];
         Coord u = this->targetPos[i]-x[i];
         Real nrm2 = u.norm2();
         f[i]+=k*u;
@@ -489,7 +490,7 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::draw(const co
         if (showArrowSize.getValue()==0 || drawMode.getValue() == 0)	vparams->drawTool()->drawLines(points, 1, c);
         else if (drawMode.getValue() == 1)	for (unsigned int i=0;i<points.size()/2;++i) vparams->drawTool()->drawCylinder(points[2*i+1], points[2*i], showArrowSize.getValue(), c);
         else if (drawMode.getValue() == 2)	for (unsigned int i=0;i<points.size()/2;++i) vparams->drawTool()->drawArrow(points[2*i+1], points[2*i], showArrowSize.getValue(), c);
-        else serr << "No proper drawing mode found!" << sendl;
+        else msg_error() << "No proper drawing mode found!";
     }
 }
 

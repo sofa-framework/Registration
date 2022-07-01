@@ -8,7 +8,7 @@
 #include <sofa/simulation/AnimateEndEvent.h>
 #include <sofa/core/objectmodel/KeypressedEvent.h>
 #include <sofa/core/objectmodel/KeyreleasedEvent.h>
-#include <SofaLoader/MeshOBJLoader.h>
+#include <sofa/component/io/mesh/MeshObjLoader.h>
 #include <sofa/type/Vec.h>
 #include <sofa/type/Quat.h>
 
@@ -57,11 +57,13 @@ void RegistrationExporter::init()
         }
     }
 
-    std::vector<sofa::component::loader::MeshOBJLoader*> loaders;
-    this->getContext()->get<sofa::component::loader::MeshOBJLoader,std::vector<sofa::component::loader::MeshOBJLoader*> >(&loaders);
+    std::vector<sofa::component::io::mesh::MeshOBJLoader*> loaders;
+    this->getContext()->get<sofa::component::io::mesh::MeshOBJLoader,std::vector<sofa::component::io::mesh::MeshOBJLoader*> >(&loaders);
 
-    if (!loaders.size()) 		serr << "Can not find MeshOBJLoaders in context" << sendl;
-    else for(unsigned int l=0;l<loaders.size();l++)
+    if (!loaders.size()) 		
+        msg_error() << "Can not find MeshOBJLoaders in context";
+    else 
+        for(unsigned int l=0;l<loaders.size();l++)
     {
         std::string strIn=loaders[l]->getFilename();
         if (sofa::helper::system::DataRepository.findFile(strIn))
@@ -114,7 +116,7 @@ void RegistrationExporter::writeMesh()
                             }
                         else fileOut<<line<<std::endl;
                     }
-                    sout << "Written " << this->outFileNames[l].c_str() << sendl;
+                    msg_info() << "Written " << this->outFileNames[l].c_str();
                     if (this->f_printLog.getValue()) std::cout<<"Written " << this->outFileNames[l].c_str() << std::endl;
                     fileOut.close();
                 }

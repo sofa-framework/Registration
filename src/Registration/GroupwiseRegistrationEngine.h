@@ -116,7 +116,12 @@ protected:
         {
             helper::ReadAccessor<Data<VecCoord> > pos(vf_inputs[i]);
             helper::WriteOnlyAccessor<Data<VecCoord> > outPos(vf_outputs[i]);
-            if(N!=pos.size()) { serr<<"input"<<i+1<<" has an invalid size"<<sendl; return; }
+            
+            if(N!=pos.size()) 
+            { 
+                msg_error() << "input" << i + 1 << " has an invalid size" ;
+                return;
+            }
 
             affine R; Coord t;
             ClosestRigid(pos.ref(), pos0.ref(), R, t);

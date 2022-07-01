@@ -25,13 +25,11 @@
 #include "RegistrationContactForceField.h"
 #include <sofa/core/collision/Contact.h>
 #include <sofa/core/collision/Intersection.h>
-//#include <SofaBaseMechanics/BarycentricMapping.h>
 #include <sofa/helper/Factory.h>
-#include <SofaBaseCollision/BaseContactMapper.h>
-
-#include <SofaMeshCollision/BarycentricContactMapper.h>
-#include <SofaMeshCollision/IdentityContactMapper.h>
-#include <SofaMeshCollision/RigidContactMapper.inl>
+#include <sofa/component/collision/response/mapper/BaseContactMapper.h>
+#include <sofa/component/collision/response/mapper/BarycentricContactMapper.h>
+#include <sofa/component/collision/response/mapper/IdentityContactMapper.h>
+#include <sofa/component/collision/response/mapper/RigidContactMapper.h>
 
 
 namespace sofa
@@ -66,8 +64,8 @@ namespace sofa
 	CollisionModel2* model2;
 	Intersection* intersectionMethod;
 
-	ContactMapper<CollisionModel1,DataTypes1> mapper1;
-	ContactMapper<CollisionModel2,DataTypes2> mapper2;
+	response::mapper::ContactMapper<CollisionModel1,DataTypes1> mapper1;
+	response::mapper::ContactMapper<CollisionModel2,DataTypes2> mapper2;
 
 	ResponseForceField* ff;
 	core::objectmodel::BaseContext* parent;
