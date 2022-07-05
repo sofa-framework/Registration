@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 project(Registration VERSION 0.1)
 
-find_package(Sofa.GL REQUIRED)
+find_package(Sofa.Helper REQUIRED)
+sofa_find_package(Sofa.GL REQUIRED)
 sofa_find_package(Sofa.Component.IO.Mesh REQUIRED)
 sofa_find_package(Sofa.Component.Engine.Generate REQUIRED)
 sofa_find_package(Sofa.Component.Collision.Response.Mapper REQUIRED)
