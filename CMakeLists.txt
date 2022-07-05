@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.12)
 project(Registration VERSION 0.1)
 
-find_package(Sofa.GL REQUIRED)
-sofa_find_package(SofaMiscCollision REQUIRED)
-sofa_find_package(SofaOpenglVisual REQUIRED)
-sofa_find_package(SofaExporter REQUIRED)
+find_package(Sofa.Helper REQUIRED)
+sofa_find_package(Sofa.GL REQUIRED)
+sofa_find_package(Sofa.Component.IO.Mesh REQUIRED)
+sofa_find_package(Sofa.Component.Engine.Generate REQUIRED)
+sofa_find_package(Sofa.Component.Collision.Response.Mapper REQUIRED)
 sofa_find_package(SofaDistanceGrid QUIET)
 sofa_find_package(image QUIET)
-find_package(Eigen3 REQUIRED)
 
 set(REGISTRATION_SRC "src/${PROJECT_NAME}")
 
@@ -54,11 +54,14 @@ else()
 endif()
 
 # Config files and install rules for pythons scripts
-sofa_set_python_directory(Registration "python")
+sofa_install_pythonscripts(
+    PLUGIN_NAME ${PROJECT_NAME}
+    PYTHONSCRIPTS_SOURCE_DIR "python"
+)
 
 add_library(${PROJECT_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES} ${README_FILES} ${PYTHON_FILES})
-target_link_libraries(${PROJECT_NAME} PUBLIC SofaMeshCollision SofaMiscCollision SofaBaseCollision SofaBaseVisual SofaExporter SofaOpenglVisual SofaLoader SofaMiscForceField SofaGeneralEngine)
-target_link_libraries(${PROJECT_NAME} PUBLIC Eigen3::Eigen)
+target_link_libraries(${PROJECT_NAME} PUBLIC Sofa.Component.IO.Mesh Sofa.Component.Collision.Response.Mapper Sofa.Component.Engine.Generate)
+target_link_libraries(${PROJECT_NAME} PUBLIC Sofa.GL)
 
 if(image_FOUND)
     target_link_libraries(${PROJECT_NAME} PUBLIC image)

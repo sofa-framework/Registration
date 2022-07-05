@@ -149,7 +149,7 @@ void RegistrationContactForceField<DataTypes>::addDForce(const core::MechanicalP
 template <class DataTypes>
     SReal RegistrationContactForceField<DataTypes>::getPotentialEnergy(const core::MechanicalParams* /* PARAMS FIRST */, const DataVecCoord&, const DataVecCoord& ) const
 {
-    serr<<"RegistrationContactForceField::getPotentialEnergy-not-implemented !!!"<<sendl;
+    msg_error()<<"RegistrationContactForceField::getPotentialEnergy-not-implemented !!!";
     return 0;
 }
 

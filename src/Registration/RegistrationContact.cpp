@@ -22,19 +22,22 @@
 #include "RegistrationContact.inl"
 #include "RegistrationContactForceField.inl"
 
-#include <SofaMeshCollision/BarycentricContactMapper.inl>
-#include <SofaMeshCollision/IdentityContactMapper.inl>
-#include <SofaMeshCollision/RigidContactMapper.inl>
-#include <SofaMiscCollision/TetrahedronModel.h>
+#include <sofa/component/collision/response/mapper/BarycentricContactMapper.inl>
+#include <sofa/component/collision/response/mapper/IdentityContactMapper.inl>
+#include <sofa/component/collision/response/mapper/RigidContactMapper.inl>
+#include <sofa/component/collision/response/mapper/TetrahedronBarycentricContactMapper.h>
+
+#include <sofa/component/collision/geometry/TetrahedronModel.h>
 
 #if REGISTRATION_HAVE_SOFADISTANCEGRID
 #include <SofaDistanceGrid/components/collision/DistanceGridCollisionModel.h>
 #endif
 
-#include <SofaBaseCollision/SphereModel.h>
-#include <SofaMeshCollision/PointModel.h>
-#include <SofaMeshCollision/LineModel.h>
-#include <SofaMeshCollision/TriangleModel.h>
+#include <sofa/component/collision/geometry/SphereModel.h>
+#include <sofa/component/collision/geometry/PointModel.h>
+#include <sofa/component/collision/geometry/LineModel.h>
+#include <sofa/component/collision/geometry/TriangleModel.h>
+
 
 namespace sofa
 {
@@ -47,6 +50,7 @@ namespace collision
 
 using namespace defaulttype;
 using simulation::Node;
+using namespace sofa::component::collision::geometry;
 
 Creator<Contact::Factory, RegistrationContact<SphereCollisionModel<sofa::defaulttype::Vec3Types>, SphereCollisionModel<sofa::defaulttype::Vec3Types>> > SphereSphereRegistrationContactClass("RegistrationContactForceField",true);
 Creator<Contact::Factory, RegistrationContact<SphereCollisionModel<sofa::defaulttype::Vec3Types>, PointCollisionModel<sofa::defaulttype::Vec3Types>> > SpherePointRegistrationContactClass("RegistrationContactForceField",true);
