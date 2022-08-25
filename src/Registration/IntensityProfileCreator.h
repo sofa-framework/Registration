@@ -60,9 +60,6 @@ public:
     Data< ImageTypes > image;
     Data< type::vector<T> > values; ///< intensity values for each line
 
-    virtual std::string getTemplateName() const override { return templateName(this);    }
-    static std::string templateName(const IntensityProfileCreator<ImageTypes>* = NULL) { return ImageTypes::Name(); }
-
     IntensityProfileCreator()    :   Inherited()
       , image(initData(&image,ImageTypes(),"image",""))
       , values(initData(&values,"values","intensity values for each line"))
