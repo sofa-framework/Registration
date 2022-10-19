@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 
 project(Registration_test)
 
+sofa_find_package(Sofa.Testing REQUIRED)
+
 # FF temporarily deactivated InertiaAlign_test, as well as add_executable since it does not accept 0 parameter
 set(SOURCE_FILES
     # InertiaAlign_test.cpp
