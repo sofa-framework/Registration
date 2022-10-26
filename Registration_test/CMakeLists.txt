@@ -2,19 +2,20 @@ cmake_minimum_required(VERSION 3.12)
 
 project(Registration_test)
 
+sofa_find_package(Sofa.Testing REQUIRED)
+
 # FF temporarily deactivated InertiaAlign_test, as well as add_executable since it does not accept 0 parameter
 set(SOURCE_FILES
     # InertiaAlign_test.cpp
+    GroupwiseRegistrationEngine_test.cpp
 )
 
-if(WIN32)
-    list(APPEND HEADER_FILES "stdafx.h")
-    list(APPEND SOURCE_FILES "stdafx.cpp")
+if(image_FOUND)
+    list(APPEND SOURCE_FILES IntensityProfileCreator_test.cpp)
+    list(APPEND SOURCE_FILES IntensityProfileRegistrationForceField_test.cpp)
 endif()
 
-add_definitions("-DFLEXIBLE_TEST_SCENES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/scenes\"")
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+target_link_libraries(${PROJECT_NAME} Registration Sofa.Testing)
 
-# add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-# target_link_libraries(${PROJECT_NAME} Registration SofaTest SofaGTestMain)
-
-# add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})
+add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})

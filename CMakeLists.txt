@@ -73,12 +73,6 @@ else()
     message(STATUS "Registration: could not find SofaDistanceGrid, won't build RegistrationContact for RigidDistanceGridCollisionModel.")
 endif()
 
-
-find_package(SofaTest QUIET)
-if(SofaTest_FOUND)
-    add_subdirectory(Registration_test)
-endif()
-
 ## Install rules for the library; CMake package configurations files
 sofa_create_package_with_targets(
 
@@ -89,3 +83,11 @@ sofa_create_package_with_targets(
     INCLUDE_INSTALL_DIR "${PROJECT_NAME}"
     RELOCATABLE "plugins"
 )
+
+# Tests
+# If SOFA_BUILD_TESTS exists and is OFF, then these tests will be auto-disabled
+cmake_dependent_option(REGISTRATION_BUILD_TESTS "Compile the automatic tests" ON "SOFA_BUILD_TESTS OR NOT DEFINED SOFA_BUILD_TESTS" OFF)
+if(REGISTRATION_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(Registration_test)
+endif()
