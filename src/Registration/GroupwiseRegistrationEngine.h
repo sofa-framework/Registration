@@ -64,9 +64,6 @@ public:
     core::objectmodel::vectorData<VecCoord> vf_inputs;
     core::objectmodel::vectorData<VecCoord> vf_outputs;
 
-    virtual std::string getTemplateName() const override { return templateName(this);    }
-    static std::string templateName(const GroupwiseRegistrationEngine<T>* = NULL) { return T::Name();   }
-
     void init() override
     {
         addInput(&f_nbInputs);

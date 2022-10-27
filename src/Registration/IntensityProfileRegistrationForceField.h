@@ -133,9 +133,6 @@ public:
 
     core::behavior::MechanicalState<DataTypes>* getObject() { return this->mstate; }
 
-    static std::string templateName(const IntensityProfileRegistrationForceField<DataTypes,ImageTypes>* = NULL) { return DataTypes::Name()+ std::string(",")+ImageTypes::Name();    }
-    virtual std::string getTemplateName() const override { return templateName(this);    }
-
     // -- ForceField interface
     void reinit() override;
     void init() override;
