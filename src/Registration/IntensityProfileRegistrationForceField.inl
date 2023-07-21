@@ -77,11 +77,11 @@ IntensityProfileRegistrationForceField<DataTypes, ImageTypes>::IntensityProfileR
     , showArrowSize(initData(&showArrowSize,0.01f,"showArrowSize","size of the axis"))
     , drawMode(initData(&drawMode,0,"drawMode","The way springs will be drawn:\n- 0: Line\n- 1:Cylinder\n- 2: Arrow"))
 {
-    helper::OptionsGroup InterpolationOptions(3,"Nearest", "Linear", "Cubic");
+    helper::OptionsGroup InterpolationOptions{"Nearest", "Linear", "Cubic"};
     InterpolationOptions.setSelectedItem(INTERPOLATION_LINEAR);
     Interpolation.setValue(InterpolationOptions);
 
-    helper::OptionsGroup MeasureOptions(2,"Sum of square differences", "Normalized cross correlation");
+    helper::OptionsGroup MeasureOptions{"Sum of square differences", "Normalized cross correlation"};
     MeasureOptions.setSelectedItem(SIMILARITY_NCC);
     SimilarityMeasure.setValue(MeasureOptions);
 
@@ -477,11 +477,11 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::draw(const co
     unsigned int nb = this->targetPos.size();
     if (vparams->displayFlags().getShowForceFields())
     {
-        std::vector< type::Vector3 > points;
+        std::vector< type::Vec3 > points;
         for (unsigned int i=0; i<nb; i++)
         {
-            type::Vector3 point1 = DataTypes::getCPos(x[i]);
-            type::Vector3 point2 = DataTypes::getCPos(this->targetPos[i]);
+            type::Vec3 point1 = DataTypes::getCPos(x[i]);
+            type::Vec3 point2 = DataTypes::getCPos(this->targetPos[i]);
             points.push_back(point1);
             points.push_back(point2);
         }
