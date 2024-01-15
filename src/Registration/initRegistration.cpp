@@ -49,7 +49,7 @@ namespace component
 
   const char* getModuleName()
   {
-    return "Registration Plugin";
+    return "Registration";
   }
 
   const char* getModuleVersion()
