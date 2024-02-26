@@ -485,7 +485,7 @@ void InertiaAlign::init()
         positionDistSource = (*m_positions.beginEdit());
         for (size_t j = 0; j < waPositions.size(); j++)
         {
-            type::Vector4 pointS,pointT;
+            type::Vec4 pointS,pointT;
             pointS(0) = (*m_positions.beginEdit())[j][0];
             pointS(1) = (*m_positions.beginEdit())[j][1];
             pointS(2) = (*m_positions.beginEdit())[j][2];
@@ -577,7 +577,7 @@ void InertiaAlign::init()
         msg_info() << "The MTransformSourceMatrix is not a Transformation matrix";
     for (size_t i = 0; i < waPositions.size(); i++)
     {
-        type::Vector4 pointS,pointT;
+        type::Vec4 pointS,pointT;
         pointS(0) = (*m_positions.beginEdit())[i][0];
         pointS(1) = (*m_positions.beginEdit())[i][1];
         pointS(2) = (*m_positions.beginEdit())[i][2];

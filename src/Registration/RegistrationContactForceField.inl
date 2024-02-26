@@ -164,7 +164,7 @@ void RegistrationContactForceField<DataTypes>::draw(const core::visual::VisualPa
 
     glDisable(GL_LIGHTING);
 
-    std::vector< type::Vector3 > points[4];
+    std::vector< type::Vec3 > points[4];
 
     for (unsigned int i=0; i<cc.size(); i++)
 	{
@@ -199,7 +199,7 @@ void RegistrationContactForceField<DataTypes>::draw(const core::visual::VisualPa
     vparams->drawTool()->drawLines(points[2], 1, type::RGBAColor::red());
     vparams->drawTool()->drawLines(points[3], 1, type::RGBAColor::green());
 
-	std::vector< type::Vector3 > pointsN;
+    std::vector< type::Vec3 > pointsN;
 	if (vparams->displayFlags().getShowNormals())
 	{
         for (unsigned int i=0; i<cc.size(); i++)
