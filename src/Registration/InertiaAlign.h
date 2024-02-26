@@ -52,8 +52,8 @@ public:
       * Data Fields
       */
     /// input
-    Data <sofa::type::Vector3> targetC;
-    Data <sofa::type::Vector3> sourceC; ///< input: the gravity center of the source mesh
+    Data <sofa::type::Vec3> targetC;
+    Data <sofa::type::Vec3> sourceC; ///< input: the gravity center of the source mesh
 
     Data < Mat3x3 > targetInertiaMatrix; ///< input: the inertia matrix of the target mesh
     Data < Mat3x3 > sourceInertiaMatrix; ///< input: the inertia matrix of the source mesh
@@ -68,7 +68,7 @@ public:
 
 protected:
 
-    typedef type::Vector3 Vector3;
+    typedef type::Vec3 Vector3;
     typedef type::Matrix4 Matrix4;
 
     SReal computeDistances(type::vector<sofa::type::Vec<3,SReal> >, type::vector<sofa::type::Vec<3,SReal> >);

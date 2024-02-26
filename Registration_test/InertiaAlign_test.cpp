@@ -68,7 +68,7 @@ using namespace modeling;
             //GenerateRigid (massSource, centerSource, &meshSource);
 
             type::Vec3d centerTarget ;
-            sofa::type::Vector3 translation;
+            sofa::type::Vec3 translation;
             defaulttype::Rigid3Mass massTarget;
 
             GenerateRigidMass::SPtr rigidSource = New<GenerateRigidMass>();

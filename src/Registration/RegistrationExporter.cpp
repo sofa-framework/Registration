@@ -73,12 +73,12 @@ void RegistrationExporter::init()
             if (this->f_printLog.getValue()) std::cout<<"RegistrationExporter: "<<this->inFileNames.back()<<"  ->  "<<this->outFileNames.back()<<std::endl;
 
             // get inverse transforms applied in loader
-                        type::Vector3 scale=loaders[l]->getScale();
+                        type::Vec3 scale=loaders[l]->getScale();
                         Mat4x4 m_scale; m_scale.fill(0);   for(unsigned int i=0;i<3;i++)	 m_scale[i][i]=1./scale[i]; m_scale[3][3]=1.;
                         type::Quat<SReal> q = type::Quat< SReal >::createQuaterFromEuler(type::Vec< 3, SReal >(loaders[l]->getRotation()) * M_PI / 180.0);
                         Mat4x4 m_rot;
                         q.inverse().toHomogeneousMatrix(m_rot);
-                        type::Vector3 translation=loaders[l]->getTranslation();
+                        type::Vec3 translation=loaders[l]->getTranslation();
                         Mat4x4 m_translation; m_translation.fill(0);   for(unsigned int i=0;i<3;i++)	 m_translation[i][3]=-translation[i];  for(unsigned int i=0;i<4;i++)	 m_translation[i][i]=1;
                         this->inverseTransforms.push_back(m_scale*m_rot*m_translation);
                         if (this->f_printLog.getValue()) std::cout<<"RegistrationExporter: transform = "<<this->inverseTransforms.back()<<std::endl;

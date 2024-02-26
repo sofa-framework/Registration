@@ -385,12 +385,12 @@ void ClosestPointRegistrationForceField<DataTypes>::draw(const core::visual::Vis
     unsigned int nb = this->closestPos.size();
     if (vparams->displayFlags().getShowForceFields())
     {
-        std::vector< type::Vector3 > points;
+        std::vector< type::Vec3 > points;
         for (unsigned int i=0; i<nb; i++)
             if(!sourceIgnored[i])
             {
-                type::Vector3 point1 = DataTypes::getCPos(x[i]);
-                type::Vector3 point2 = DataTypes::getCPos(this->closestPos[i]);
+                type::Vec3 point1 = DataTypes::getCPos(x[i]);
+                type::Vec3 point2 = DataTypes::getCPos(this->closestPos[i]);
                 points.push_back(point1);
                 points.push_back(point2);
             }
@@ -409,8 +409,8 @@ void ClosestPointRegistrationForceField<DataTypes>::draw(const core::visual::Vis
         for (unsigned int i=0; i<nb; i++)
             if(!sourceIgnored[i])
             {
-                type::Vector3 point1 = DataTypes::getCPos(x[i]);
-                type::Vector3 point2 = DataTypes::getCPos(this->closestPos[i]);
+                type::Vec3 point1 = DataTypes::getCPos(x[i]);
+                type::Vec3 point2 = DataTypes::getCPos(this->closestPos[i]);
                 dists[i]=(point2-point1).norm();
             }
         Real max=0; for (unsigned int i=0; i<dists.size(); i++) if(max<dists[i]) max=dists[i];
