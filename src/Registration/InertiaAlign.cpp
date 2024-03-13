@@ -376,7 +376,7 @@ void InertiaAlign::init()
 
     //Construction of S
     MTransformSource(3,3) = 1;
-    Vector4 TranslationSource;
+    Vec4 TranslationSource;
 
     MTransformSource(0,3) = -(*sourceC.beginEdit())[0];
     MTransformSource(1,3) = -(*sourceC.beginEdit())[1];
