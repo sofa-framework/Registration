@@ -15,7 +15,7 @@
 			<MeshOBJLoader name="MeshLoader"  filename="data/femur_m_res.obj" />
 			<MeshTopology src="@MeshLoader" />
 			<MechanicalObject  name="PointSet"   />
-			<UniformMass mass="0.001"/>
+			<UniformMass vertexMass="0.001"/>
    			<MeshSpringForceField name="Springs" stiffness="10000" />
 
 			<NormalsFromPoints name="NormalsFromPoints" template="Vec3d" position="@PointSet.position" triangles="@MeshLoader.triangles" quads="@MeshLoader.quads"/>
