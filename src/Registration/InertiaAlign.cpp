@@ -22,6 +22,7 @@
 #define SOFA_COMPONENT_ENGINE_INERTIAALIGN_CPP
 
 #include "InertiaAlign.h"
+#include <Registration/config.h>
 #include <sofa/core/ObjectFactory.h>
 #include <Eigen/Dense>
 #include <Eigen/Core>
