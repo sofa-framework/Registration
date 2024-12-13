@@ -4,7 +4,7 @@
  - Benjamin Gilles
 
 ## LICENSE :
- - QPL
+ - LGPL
 
 ## OTHER COMMENTS :
 This plugin allows registering deformable surfaces to
