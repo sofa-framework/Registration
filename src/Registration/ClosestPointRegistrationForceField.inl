@@ -380,7 +380,7 @@ void ClosestPointRegistrationForceField<DataTypes>::draw(const core::visual::Vis
     if (!vparams->displayFlags().getShowForceFields() && !drawColorMap.getValue()) return;
 
     ReadAccessor< Data< VecCoord > > x(*this->getMState()->read(core::vec_id::read_access::position));
-    //const VecCoord& x = this->mstate->read(core::ConstVecCoordId::position())->getValue();
+    //const VecCoord& x = this->mstate->read(core::vec_id::read_access::position)->getValue();
 
     unsigned int nb = this->closestPos.size();
     if (vparams->displayFlags().getShowForceFields())
