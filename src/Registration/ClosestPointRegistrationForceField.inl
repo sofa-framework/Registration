@@ -151,7 +151,7 @@ template<class DataTypes>
 void ClosestPointRegistrationForceField<DataTypes>::initSource()
 {
     // build k-d tree
-    const VecCoord&  p = this->mstate->read(core::ConstVecCoordId::position())->getValue();
+    const VecCoord&  p = this->mstate->read(core::vec_id::read_access::position)->getValue();
     if(p.size()) sourceKdTree.build(p);
 
     // detect border
@@ -177,7 +177,7 @@ void ClosestPointRegistrationForceField<DataTypes>::initTarget()
 template<class DataTypes>
 void ClosestPointRegistrationForceField<DataTypes>::updateClosestPoints()
 {
-    const VecCoord& x = this->mstate->read(core::ConstVecCoordId::position())->getValue();
+    const VecCoord& x = this->mstate->read(core::vec_id::read_access::position)->getValue();
     const VecCoord&  tp = targetPositions.getValue();
 
     unsigned int nbs=x.size(),nbt=tp.size();
@@ -210,7 +210,7 @@ void ClosestPointRegistrationForceField<DataTypes>::updateClosestPoints()
 #pragma omp parallel for
 #endif
         for(int i=0;i<(int)nbt;i++)
-            sourceKdTree.getNClosest(closestTarget[i],tp[i], this->mstate->read(core::ConstVecCoordId::position())->getValue(),1);
+            sourceKdTree.getNClosest(closestTarget[i],tp[i], this->mstate->read(core::vec_id::read_access::position)->getValue(),1);
     }
 
 
@@ -379,7 +379,7 @@ void ClosestPointRegistrationForceField<DataTypes>::draw(const core::visual::Vis
 
     if (!vparams->displayFlags().getShowForceFields() && !drawColorMap.getValue()) return;
 
-    ReadAccessor< Data< VecCoord > > x(*this->getMState()->read(core::ConstVecCoordId::position()));
+    ReadAccessor< Data< VecCoord > > x(*this->getMState()->read(core::vec_id::read_access::position));
     //const VecCoord& x = this->mstate->read(core::ConstVecCoordId::position())->getValue();
 
     unsigned int nb = this->closestPos.size();
