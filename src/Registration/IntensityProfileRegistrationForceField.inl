@@ -114,8 +114,8 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::init()
 
     if(this->mstate)
     {
-        const VecCoord& x = this->mstate->read(core::ConstVecCoordId::position())->getValue();
-        //RDataRefVecCoord x(*this->getMState()->read(core::ConstVecCoordId::position()));
+        const VecCoord& x = this->mstate->read(core::vec_id::read_access::position)->getValue();
+        //RDataRefVecCoord x(*this->getMState()->read(core::vec_id::read_access::position));
 
         RDataRefVecCoord dir(this->directions);
         if (dir.size() != x.size())
@@ -158,8 +158,8 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::udpateProfile
     // get current data
     const CImg<T>& img = in->getCImg(t);
     const VecCoord& pos = (ref?
-                               this->mstate->read(core::ConstVecCoordId::restPosition())->getValue():
-                               this->mstate->read(core::ConstVecCoordId::position())->getValue());
+                               this->mstate->read(core::vec_id::read_access::restPosition)->getValue():
+                               this->mstate->read(core::vec_id::read_access::position)->getValue());
     const RDataRefVecCoord dir(ref?this->refDirections:this->directions);
     if(dir.size() != pos.size()) return;
 
@@ -250,7 +250,7 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::udpateSimilar
 
     if( IP->isEmpty() || IPref->isEmpty() || !this->mstate)  return;
 
-    const VecCoord& pos = this->mstate->read(core::ConstVecCoordId::position())->getValue();
+    const VecCoord& pos = this->mstate->read(core::vec_id::read_access::position)->getValue();
     const CImg<T>& prof = IP->getCImg(0);
     const CImg<T>& profref = IPref->getCImg(0);
 
@@ -471,8 +471,8 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::draw(const co
 
     if (!vparams->displayFlags().getShowForceFields()) return;
 
-    RDataRefVecCoord x(*this->getMState()->read(core::ConstVecCoordId::position()));
-    //const VecCoord& x = this->mstate->read(core::ConstVecCoordId::position())->getValue();
+    RDataRefVecCoord x(*this->getMState()->read(core::vec_id::read_access::position));
+    //const VecCoord& x = this->mstate->read(core::vec_id::read_access::position)->getValue();
 
     unsigned int nb = this->targetPos.size();
     if (vparams->displayFlags().getShowForceFields())

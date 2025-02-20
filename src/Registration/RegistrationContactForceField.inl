@@ -158,8 +158,8 @@ void RegistrationContactForceField<DataTypes>::draw(const core::visual::VisualPa
 {
 #if REGISTRATION_HAVE_SOFA_GL == 1
 	if (!((this->mstate1 == this->mstate2)?vparams->displayFlags().getShowForceFields():vparams->displayFlags().getShowInteractionForceFields())) return;
-	const VecCoord& p1 = this->mstate1->read(core::ConstVecCoordId::position())->getValue();
-	const VecCoord& p2 = this->mstate2->read(core::ConstVecCoordId::position())->getValue();
+	const VecCoord& p1 = this->mstate1->read(core::vec_id::read_access::position)->getValue();
+	const VecCoord& p2 = this->mstate2->read(core::vec_id::read_access::position)->getValue();
     const type::vector<Contact>& cc = contacts.getValue();
 
     glDisable(GL_LIGHTING);
@@ -237,7 +237,7 @@ template<class DataTypes>
 	if (contacts.getValue()[i].m1  == (int)index[j])
 	{
 	  result.push_back(std::make_pair(static_cast< core::objectmodel::BaseObject *>(this),
-			   this->mstate2->read(core::ConstVecCoordId::position())->getValue()[contacts.getValue()[i].m2])
+			   this->mstate2->read(core::vec_id::read_access::position)->getValue()[contacts.getValue()[i].m2])
 			  );
 	  triangle.push_back(contacts.getValue()[i].index2);
 	  index_point.push_back(index[j]);
@@ -255,7 +255,7 @@ template<class DataTypes>
 	if (contacts.getValue()[i].m2  == (int)index[j])
 	{
 	  result.push_back(std::make_pair(static_cast< core::objectmodel::BaseObject *>(this),
-			   this->mstate1->read(core::ConstVecCoordId::position())->getValue()[contacts.getValue()[i].m1])
+			   this->mstate1->read(core::vec_id::read_access::position)->getValue()[contacts.getValue()[i].m1])
 			  );
 
 	  triangle.push_back(contacts.getValue()[i].index1);
