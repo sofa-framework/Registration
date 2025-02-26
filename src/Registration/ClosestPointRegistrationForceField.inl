@@ -129,13 +129,13 @@ void ClosestPointRegistrationForceField<DataTypes>::detectBorder(type::vector<bo
 
     if(!nbp)
     {
-        msg_error() << "Number of points in border vector is null";
+        msg_info() << "Number of points in border vector is null";
         return;
     }
 
     if(!nbt)
     {
-        msg_error() << "Number of triangles is null";
+        msg_info() << "Number of triangles is null";
         return;
     }
 
