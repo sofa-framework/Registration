@@ -120,30 +120,60 @@ void ClosestPointRegistrationForceField<DataTypes>::init()
 }
 
 template<class DataTypes>
-void ClosestPointRegistrationForceField<DataTypes>::detectBorder(type::vector<bool> &border,const type::vector< tri > &triangles)
+void ClosestPointRegistrationForceField<DataTypes>::detectBorder(type::vector<bool> &border, const type::vector< tri > &triangles)
 {
     unsigned int nbp=border.size();
     unsigned int nbt=triangles.size();
-    for(unsigned int i=0;i<nbp;i++) border[i]=false;
 
-    if(!nbt) return;
+    std::fill(border.begin(), border.end(), false);
+
+    if(!nbp)
+    {
+        msg_info() << "Number of points in border vector is null";
+        return;
+    }
+
+    if(!nbt)
+    {
+        msg_info() << "Number of triangles is null";
+        return;
+    }
+
+
     vector<vector< unsigned int> > ngbTriangles((int)nbp);
-    for(unsigned int i=0;i<nbt;i++) for(unsigned int j=0;j<3;j++)	ngbTriangles[triangles[i][j]].push_back(i);
-    for(unsigned int i=0;i<nbp;i++) if(ngbTriangles[i].size()==0) border[i]=true;
+
     for(unsigned int i=0;i<nbt;i++)
-        for(unsigned int j=0;j<3;j++)
+    {
+        for (unsigned int j = 0; j < 3; j++) {
+            if (triangles[i][j] >= nbp) {
+                msg_error() << "point " << j << " of triangle " << i << " id exceeds border vector size";
+                return;
+            }
+            ngbTriangles[triangles[i][j]].push_back(i);
+        }
+    }
+
+    for(unsigned int i=0;i<nbp;i++)
+        if(ngbTriangles[i].size()==0)
+            border[i]=true;
+
+    for(unsigned int i=0;i<nbt;i++)
+    {
+        for (unsigned int j = 0; j < 3; j++)
         {
-            unsigned int id1=triangles[i][j],id2=triangles[i][(j==2)?0:j+1];
-            if(!border[id1] || !border[id2]) {
-                bool bd=true;
-                for(unsigned int i1=0;i1<ngbTriangles[id1].size() && bd;i1++)
-                    for(unsigned int i2=0;i2<ngbTriangles[id2].size() && bd;i2++)
-                        if(ngbTriangles[id1][i1]!=i)
-                            if(ngbTriangles[id1][i1]==ngbTriangles[id2][i2])
-                                bd=false;
-                if(bd) border[id1]=border[id2]=true;
+            unsigned int id1 = triangles[i][j], id2 = triangles[i][(j == 2) ? 0 : j + 1];
+            if (!border[id1] || !border[id2])
+            {
+                bool bd = true;
+                for (unsigned int i1 = 0; i1 < ngbTriangles[id1].size() && bd; i1++)
+                    for (unsigned int i2 = 0; i2 < ngbTriangles[id2].size() && bd; i2++)
+                        if (ngbTriangles[id1][i1] != i)
+                            if (ngbTriangles[id1][i1] == ngbTriangles[id2][i2])
+                                bd = false;
+                if (bd) border[id1] = border[id2] = true;
             }
         }
+    }
 }
 
 
