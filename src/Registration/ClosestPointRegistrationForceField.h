@@ -96,7 +96,7 @@ public:
     void addForce(const core::MechanicalParams* /*mparams*/,DataVecDeriv& f , const DataVecCoord& x , const DataVecDeriv& v) override;
     void addDForce(const core::MechanicalParams* mparams ,DataVecDeriv&   df , const DataVecDeriv&   dx) override;
     SReal getPotentialEnergy(const core::MechanicalParams* ,const DataVecCoord&) const override { return m_potentialEnergy; }
-    void addKToMatrix( const core::MechanicalParams* mparams,const sofa::core::behavior::MultiMatrixAccessor* matrix) override;
+    void addKToMatrix(sofa::linearalgebra::BaseMatrix * matrix, SReal kFact, unsigned int & offset) override;
 
     Real getStiffness() const{ return ks.getValue(); }
     Real getDamping() const{ return kd.getValue(); }

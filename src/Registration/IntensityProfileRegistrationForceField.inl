@@ -438,13 +438,11 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::addDForce(con
 
 
 template<class DataTypes,class ImageTypes>
-void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::addKToMatrix(const core::MechanicalParams* mparams,const sofa::core::behavior::MultiMatrixAccessor* matrix)
+void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::addKToMatrix(sofa::linearalgebra::BaseMatrix * matrix, SReal kFactor, unsigned int &offset)
 {
-    Real k = (Real)sofa::core::mechanicalparams::kFactorIncludingRayleighDamping(mparams, this->rayleighStiffness.getValue()) * this->ks.getValue();
-    if(!k) return;
-    sofa::core::behavior::MultiMatrixAccessor::MatrixRef mref = matrix->getMatrix(this->mstate);
-    sofa::linearalgebra::BaseMatrix *mat = mref.matrix;
-    const int offset = (int)mref.offset;
+    if(!kFactor) 
+        return;
+
     const int N = Coord::total_size;
     const int nb = this->targetPos.size();
 
@@ -453,13 +451,13 @@ void IntensityProfileRegistrationForceField<DataTypes,ImageTypes>::addKToMatrix(
         for (int index = 0; index <nb; index++)
             for(int i = 0; i < N; i++)
                 for(int j = 0; j < N; j++)
-                    mat->add(offset + N * index + i, offset + N * index + j, -k*this->dfdx[index][i][j]);
+                    matrix->add(offset + N * index + i, offset + N * index + j, -kFactor*this->dfdx[index][i][j]);
     }
     else
     {
         for (int index = 0; index <nb; index++)
             for(int i = 0; i < N; i++)
-                mat->add(offset + N * index + i, offset + N * index + i, -k);
+                matrix->add(offset + N * index + i, offset + N * index + i, -kFactor);
     }
 
 }
