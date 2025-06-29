@@ -67,7 +67,7 @@ void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::c
 }
 
 template < class TCollisionModel1, class TCollisionModel2, class ResponseDataTypes >
-void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::setDetectionOutputs(OutputVector* o)
+void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::doSetDetectionOutputs(OutputVector* o)
 {
     TOutputVector& outputs = *static_cast<TOutputVector*>(o);
     if (ff==NULL)
@@ -191,7 +191,7 @@ void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::s
 }
 
 template < class TCollisionModel1, class TCollisionModel2, class ResponseDataTypes >
-void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::createResponse(core::objectmodel::BaseContext* group)
+void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::doCreateResponse(core::objectmodel::BaseContext* group)
 {
     if (ff!=NULL)
     {
@@ -210,7 +210,7 @@ void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::c
 }
 
 template < class TCollisionModel1, class TCollisionModel2, class ResponseDataTypes >
-void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::removeResponse()
+void RegistrationContact<TCollisionModel1,TCollisionModel2,ResponseDataTypes>::doRemoveResponse()
 {
     if (ff!=NULL)
     {
