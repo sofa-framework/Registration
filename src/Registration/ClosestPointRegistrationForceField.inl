@@ -387,18 +387,15 @@ void ClosestPointRegistrationForceField<DataTypes>::addDForce(const core::Mechan
 }
 
 template<class DataTypes>
-void ClosestPointRegistrationForceField<DataTypes>::addKToMatrix(const core::MechanicalParams* mparams,const sofa::core::behavior::MultiMatrixAccessor* matrix)
+void ClosestPointRegistrationForceField<DataTypes>::addKToMatrix(sofa::linearalgebra::BaseMatrix * matrix, SReal kFact, unsigned int & offset)
 {
-    Real k = (Real)sofa::core::mechanicalparams::kFactorIncludingRayleighDamping(mparams, this->rayleighStiffness.getValue()) * this->ks.getValue();
-    if(!k) return;
-    sofa::core::behavior::MultiMatrixAccessor::MatrixRef mref = matrix->getMatrix(this->mstate);
-    sofa::linearalgebra::BaseMatrix *mat = mref.matrix;
-    const int offset = (int)mref.offset;
+    if(!kFact)
+        return;
     const int N = Coord::total_size;
     const int nb = this->closestPos.size();
     for (int index = 0; index < nb; index++)
         for(int i = 0; i < N; i++)
-            mat->add(offset + N * index + i, offset + N * index + i, -k);
+            matrix->add(offset + N * index + i, offset + N * index + i, -kFact);
 }
 
 template<class DataTypes>
