@@ -19,8 +19,7 @@
 *                                                                             *
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
-#ifndef REGISTRATION_CONFIG_H
-#define REGISTRATION_CONFIG_H
+#pragma once
 
 #include <sofa/config.h>
 
@@ -39,4 +38,8 @@
 #  define SOFA_REGISTRATION_API SOFA_IMPORT_DYNAMIC_LIBRARY
 #endif
 
-#endif
+namespace registration
+{
+    constexpr const char* MODULE_NAME = "@PROJECT_NAME@";
+    constexpr const char* MODULE_VERSION = "@PROJECT_VERSION@";
+} // namespace registration

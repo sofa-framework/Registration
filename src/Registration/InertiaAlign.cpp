@@ -38,9 +38,11 @@ namespace component
 using namespace sofa::type;
 using namespace sofa::defaulttype;
 
-int InertiaAlignClass = core::RegisterObject("An engine computing inertia matrix and the principal direction of a mesh.")
-        .add< InertiaAlign >()
-        ;
+void registerInertiaAlign(sofa::core::ObjectFactory* factory)
+{
+    factory->registerObjects(sofa::core::ObjectRegistrationData("An engine computing inertia matrix and the principal direction of a mesh")
+    .add< InertiaAlign >());
+}
 
 
 InertiaAlign::InertiaAlign()
