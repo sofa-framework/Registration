@@ -20,6 +20,8 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 #include <Registration/config.h>
+#include <sofa/core/ObjectFactory.h>
+#include <sofa/helper/system/PluginManager.h>
 
 namespace sofa::component
 {
@@ -28,11 +30,15 @@ namespace sofa::component
 namespace sofa::component::engine
 {
     extern void registerGroupwiseRegistrationEngine(sofa::core::ObjectFactory* factory);
+#ifdef REGISTRATION_USES_IMAGE
     extern void registerIntensityProfileCreator(sofa::core::ObjectFactory* factory);
+#endif
 }
 namespace sofa::component::forcefield
 {
+#ifdef REGISTRATION_USES_IMAGE
     extern void registerIntensityProfileRegistrationForceField(sofa::core::ObjectFactory* factory);
+#endif
     extern void registerClosestPointRegistrationForceField(sofa::core::ObjectFactory* factory);
 }
 namespace sofa::component::interactionforcefield
@@ -94,8 +100,10 @@ namespace registration
   {
       sofa::component::registerInertiaAlign(factory);
       sofa::component::engine::registerGroupwiseRegistrationEngine( factory);
+#ifdef REGISTRATION_USES_IMAGE
       sofa::component::engine::registerIntensityProfileCreator(factory);
       sofa::component::forcefield::registerIntensityProfileRegistrationForceField(factory);
+#endif
       sofa::component::forcefield::registerClosestPointRegistrationForceField(factory);
       sofa::component::interactionforcefield::registerRegistrationContactForceField(factory);
       sofa::component::misc::registerRegistrationExporter(factory);

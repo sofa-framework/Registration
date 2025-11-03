@@ -18,7 +18,8 @@
 * Authors: The SOFA Team and external contributors (see Authors.txt)          *
 *                                                                             *
 * Contact information: contact@sofa-framework.org                             *
-******************************************************************************/#include "RegistrationExporter.h"
+******************************************************************************/
+#include "RegistrationExporter.h"
 
 #include <sstream>
 #include <iomanip>
