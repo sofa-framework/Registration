@@ -20,13 +20,38 @@
 * Contact information: contact@sofa-framework.org                             *
 ******************************************************************************/
 #include <Registration/config.h>
+#include <sofa/core/ObjectFactory.h>
+#include <sofa/helper/system/PluginManager.h>
 
-namespace sofa
+namespace sofa::component
 {
-
-namespace component
+    extern void registerInertiaAlign(sofa::core::ObjectFactory* factory);
+}
+namespace sofa::component::engine
 {
+    extern void registerGroupwiseRegistrationEngine(sofa::core::ObjectFactory* factory);
+#ifdef REGISTRATION_USES_IMAGE
+    extern void registerIntensityProfileCreator(sofa::core::ObjectFactory* factory);
+#endif
+}
+namespace sofa::component::forcefield
+{
+#ifdef REGISTRATION_USES_IMAGE
+    extern void registerIntensityProfileRegistrationForceField(sofa::core::ObjectFactory* factory);
+#endif
+    extern void registerClosestPointRegistrationForceField(sofa::core::ObjectFactory* factory);
+}
+namespace sofa::component::interactionforcefield
+{
+    extern void registerRegistrationContactForceField(sofa::core::ObjectFactory* factory);
+}
+namespace sofa::component::misc
+{
+    extern void registerRegistrationExporter(sofa::core::ObjectFactory* factory);
+}
 
+namespace registration
+{
   //Here are just several convenient functions to help user to know what contains the plugin
 
   extern "C" {
@@ -35,7 +60,7 @@ namespace component
     SOFA_REGISTRATION_API const char* getModuleVersion();
     SOFA_REGISTRATION_API const char* getModuleLicense();
     SOFA_REGISTRATION_API const char* getModuleDescription();
-    SOFA_REGISTRATION_API const char* getModuleComponentList();
+    SOFA_REGISTRATION_API void registerObjects(sofa::core::ObjectFactory* factory);
   }
   
   void initExternalModule()
@@ -43,18 +68,21 @@ namespace component
     static bool first = true;
     if (first)
     {
+      // make sure that this plugin is registered into the PluginManager
+      sofa::helper::system::PluginManager::getInstance().registerPlugin(MODULE_NAME);
+
       first = false;
     }
   }
 
   const char* getModuleName()
   {
-    return "Registration";
+    return MODULE_NAME;
   }
 
   const char* getModuleVersion()
   {
-    return "0.1";
+    return MODULE_VERSION;
   }
 
   const char* getModuleLicense()
@@ -68,12 +96,17 @@ namespace component
     return "Model/image registration force fields";
   }
 
-  const char* getModuleComponentList()
+  void registerObjects(sofa::core::ObjectFactory* factory)
   {
-    return "ImageRegistrationLoader, IntensityProfileRegistrationForceField, RegistrationContact, RegistrationContactForceField, ClosestPointRegistrationForceField, RegistrationExporter";
+      sofa::component::registerInertiaAlign(factory);
+      sofa::component::engine::registerGroupwiseRegistrationEngine( factory);
+#ifdef REGISTRATION_USES_IMAGE
+      sofa::component::engine::registerIntensityProfileCreator(factory);
+      sofa::component::forcefield::registerIntensityProfileRegistrationForceField(factory);
+#endif
+      sofa::component::forcefield::registerClosestPointRegistrationForceField(factory);
+      sofa::component::interactionforcefield::registerRegistrationContactForceField(factory);
+      sofa::component::misc::registerRegistrationExporter(factory);
   }
 
 } // namespace registration
-
-} // namespace sofa
-

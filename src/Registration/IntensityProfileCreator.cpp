@@ -35,13 +35,15 @@ namespace engine
 
 using namespace defaulttype;
 
-int IntensityProfileCreatorClass = core::RegisterObject("Create reference intensity profiles from custom values")
+void registerIntensityProfileCreator(sofa::core::ObjectFactory* factory)
+{
+    factory->registerObjects(sofa::core::ObjectRegistrationData("Create reference intensity profiles from custom values")
         .add<IntensityProfileCreator<ImageUC> >(true)
         .add<IntensityProfileCreator<ImageUS> >()
         .add<IntensityProfileCreator<ImageS> >()
         .add<IntensityProfileCreator<ImageD> >()
-        .add<IntensityProfileCreator<ImageB> >()
-        ;
+        .add<IntensityProfileCreator<ImageB> >());
+}
 
 template class SOFA_REGISTRATION_API IntensityProfileCreator<ImageUC>;
 template class SOFA_REGISTRATION_API IntensityProfileCreator<ImageUS>;
