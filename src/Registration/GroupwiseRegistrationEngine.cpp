@@ -34,10 +34,13 @@ namespace engine
 
 using namespace defaulttype;
 
-int GroupwiseRegistrationEngineClass = core::RegisterObject("Register a set of meshes of similar topology")
-        .add<GroupwiseRegistrationEngine< Vec3Types > >(true)
 
-        ;
+void registerGroupwiseRegistrationEngine(sofa::core::ObjectFactory* factory)
+{
+    factory->registerObjects(sofa::core::ObjectRegistrationData("Register a set of meshes of similar topology")
+    .add< GroupwiseRegistrationEngine< Vec3Types > >(true));
+}
+
 template class SOFA_REGISTRATION_API GroupwiseRegistrationEngine< Vec3Types >;
 
 

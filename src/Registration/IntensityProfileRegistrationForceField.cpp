@@ -36,23 +36,23 @@ namespace forcefield
     using namespace defaulttype;
 
       // Register in the Factory
-      int IntensityProfileRegistrationForceFieldClass = core::RegisterObject("Compute normal forces on a point set based on the closest intensity profile in the target image")
+      void registerIntensityProfileRegistrationForceField(sofa::core::ObjectFactory* factory)
+      {
+          factory->registerObjects(sofa::core::ObjectRegistrationData("Compute normal forces on a point set based on the closest intensity profile in the target image")
           .add< IntensityProfileRegistrationForceField<Vec3Types,ImageUC> >(true)
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageUS> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageD> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageC> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageI> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageUI> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageS> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageL> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageUL> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageF> >()
-      .add< IntensityProfileRegistrationForceField<Vec3Types,ImageB> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageUS> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageD> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageC> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageI> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageUI> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageS> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageL> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageUL> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageF> >()
+          .add< IntensityProfileRegistrationForceField<Vec3Types,ImageB> >());
+      }
 
-    
-    ;
-
-          template class SOFA_REGISTRATION_API IntensityProfileRegistrationForceField<Vec3Types,ImageUC>;
+      template class SOFA_REGISTRATION_API IntensityProfileRegistrationForceField<Vec3Types,ImageUC>;
       template class SOFA_REGISTRATION_API IntensityProfileRegistrationForceField<Vec3Types,ImageUS>;
       template class SOFA_REGISTRATION_API IntensityProfileRegistrationForceField<Vec3Types,ImageD>;
       template class SOFA_REGISTRATION_API IntensityProfileRegistrationForceField<Vec3Types,ImageC>;
