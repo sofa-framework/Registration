@@ -34,17 +34,15 @@ namespace forcefield
 {
 
     using namespace sofa::defaulttype;
-
-      // Register in the Factory
-      int ClosestPointRegistrationForceFieldClass = core::RegisterObject("Compute forces based on closest points from/to a target surface/point set")
-            .add< ClosestPointRegistrationForceField<Vec3Types> >()
     
-    ;
-
-          template class SOFA_REGISTRATION_API ClosestPointRegistrationForceField<Vec3Types>;
+    // Register in the Factory
+    void registerClosestPointRegistrationForceField(sofa::core::ObjectFactory* factory)
+    {
+      factory->registerObjects(sofa::core::ObjectRegistrationData("Compute forces based on closest points from/to a target surface/point set")
+      .add< ClosestPointRegistrationForceField<Vec3Types> >());
+    }
     
-
-
+    template class SOFA_REGISTRATION_API ClosestPointRegistrationForceField<Vec3Types>;
             
 }
 }

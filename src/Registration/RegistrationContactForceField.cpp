@@ -39,10 +39,12 @@ using namespace sofa::defaulttype;
 
 
 // Register in the Factory
-int RegistrationContactForceFieldClass = core::RegisterObject("Contact using attractive springs")
-.add< RegistrationContactForceField<Vec3Types> >()
+void registerRegistrationContactForceField(sofa::core::ObjectFactory* factory)
+{
+    factory->registerObjects(sofa::core::ObjectRegistrationData("Contact using attractive springs")
+    .add< RegistrationContactForceField<Vec3Types> >());
+}
 
-;
 
 template class SOFA_REGISTRATION_API RegistrationContactForceField<Vec3Types>;
 
