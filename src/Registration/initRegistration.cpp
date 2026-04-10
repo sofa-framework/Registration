@@ -30,13 +30,13 @@ namespace sofa::component
 namespace sofa::component::engine
 {
     extern void registerGroupwiseRegistrationEngine(sofa::core::ObjectFactory* factory);
-#ifdef REGISTRATION_USES_IMAGE
+#ifdef REGISTRATION_HAVE_IMAGE
     extern void registerIntensityProfileCreator(sofa::core::ObjectFactory* factory);
 #endif
 }
 namespace sofa::component::forcefield
 {
-#ifdef REGISTRATION_USES_IMAGE
+#ifdef REGISTRATION_HAVE_IMAGE
     extern void registerIntensityProfileRegistrationForceField(sofa::core::ObjectFactory* factory);
 #endif
     extern void registerClosestPointRegistrationForceField(sofa::core::ObjectFactory* factory);
@@ -100,7 +100,7 @@ namespace registration
   {
       sofa::component::registerInertiaAlign(factory);
       sofa::component::engine::registerGroupwiseRegistrationEngine( factory);
-#ifdef REGISTRATION_USES_IMAGE
+#ifdef REGISTRATION_HAVE_IMAGE
       sofa::component::engine::registerIntensityProfileCreator(factory);
       sofa::component::forcefield::registerIntensityProfileRegistrationForceField(factory);
 #endif
