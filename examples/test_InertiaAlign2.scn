@@ -3,7 +3,7 @@
     <RequiredPlugin name="SofaOpenglVisual"/>
 	<RequiredPlugin name="Registration"  printLog="1"  pluginName="Registration" />
 	<VisualStyle name="visualStyle1"  displayFlags="showVisual showForceFields" />
-	<EulerImplicitSolver name="eulerImplicitSolver1"  rayleighStiffness="0.1"  rayleighMass="0.1" />
+	<EulerImplicitIntegrationScheme name="EulerImplicitIntegrationScheme1"  rayleighStiffness="0.1"  rayleighMass="0.1" />
 	<CGLinearSolver template="GraphScattered" name="cGLinearSolver1"  iterations="15"  threshold="1e-08" tolerance="1e-5"/>
 	<Node 	 name="target"  >
                 <MeshOBJLoader name="meshLoader_0" filename="data/femur_m.obj"  translation="0 0 0"  rotation="0 0 0"  scale3d="1 1 1" handleSeams="1" />
